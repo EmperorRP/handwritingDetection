@@ -22,12 +22,14 @@ model.add(tf.keras.layers.Flatten())
 #Adding layers
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
 
-#More layers
+#Adding layer 2
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
+
+#Output Layer
+model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
 
 #Train the model
 model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-
 model.fit(x_train, y_train, epochs=3)
 
 #To save the model
@@ -39,3 +41,8 @@ new_model = tf.keras.models.load_model('digit_detection.model')
 #To check if the model works
 predictions = new_model.predict(x_test)
 print(predictions)
+
+print(np.argmax(predictions[15]))
+plt.imshow(x_test[15],cmap=plt.cm.binary)
+plt.show()
+
